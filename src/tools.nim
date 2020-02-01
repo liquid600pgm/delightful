@@ -22,7 +22,7 @@ proc cursorImpl*(): ToolImpl =
         break
     if not event.consumed:
       if event.kind == evMousePress:
-        selectedObject = nil
+        selectObject(nil)
 
   result = ToolImpl(drawImpl: drawImpl, uiEventImpl: uiEventImpl)
 
@@ -57,9 +57,12 @@ proc lineSegmentImpl*(): ToolImpl =
     if event.kind == evMousePress:
       if event.mouseButton == mb1:
         if placing:
-          let line = LineSegment (a: anchor, b: adjustedMousePos())
+          let
+            line = LineSegment (a: anchor, b: adjustedMousePos())
+            segment = Segment(lineSegment: line)
           echo "placing new segment ", line
-          world.add(Segment(lineSegment: line))
+          spawnObject(segment)
+          selectObject(segment)
         anchor = adjustedMousePos()
         if not placing:
           placing = true
@@ -84,8 +87,10 @@ proc lightImpl*(): ToolImpl =
     if event.kind == evMousePress:
       if event.mouseButton == mb1:
         echo "placing new light at ", win.mousePos
-        world.add(Light(pos: vec2(win.mouseX, win.mouseY),
-                        radius: 256))
+        let light = Light(pos: vec2(win.mouseX, win.mouseY),
+                          radius: 256, color: rgb(255, 255, 255))
+        spawnObject(light)
+        selectObject(light)
       elif event.mouseButton == mb2:
         tool = toolCursor
 

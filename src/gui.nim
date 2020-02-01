@@ -7,6 +7,7 @@ import rdgui/event
 import rdgui/windows
 
 import common
+import guistyles
 import objects
 import tools
 
@@ -21,21 +22,12 @@ type
   MainWindow* = ref object of Window
 
 var
-  wm*: WindowManager
   toolImpls* = [
     toolCursor: cursorImpl(),
     toolLineSegment: lineSegmentImpl(),
     toolLight: lightImpl(),
   ]
   editorOverlay* = on
-
-FloatingWindow.renderer(Delightful, window):
-  const Background = gray(0x22)
-  ctx.begin()
-  ctx.color = Background
-  ctx.rect(0, 0, window.width, window.height)
-  ctx.draw()
-  BoxChildren(ctx, step, window)
 
 method onEvent*(win: MainWindow, event: UiEvent) =
   if event.kind == evKeyPress:

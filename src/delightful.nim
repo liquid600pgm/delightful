@@ -9,11 +9,13 @@ import objects
 win = initRWindow()
   .size(800, 600)
   .title("delightful")
+  .antialiasLevel(8)
   .open()
 surface = win.openGfx()
 
 initResources()
 initGui(win)
+initWorld()
 
 var lastTime = time()
 surface.loop:
@@ -26,6 +28,6 @@ surface.loop:
     wm.draw(ctx, step)
     ctx.text(fontPlex, 4, 4, $int(1 / deltaTime) & " fps",
              w = surface.width - 8, h = surface.height - 8,
-             vAlign = taTop, hAlign = taRight)
+             vAlign = taBottom, hAlign = taLeft)
   update:
     updateWorld()

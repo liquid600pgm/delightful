@@ -4,6 +4,7 @@ import rapid/gfx
 import rapid/gfx/text
 import rapid/res/images
 import rapid/res/textures
+import rdgui/windows
 
 const
   Black* = gray(0)
@@ -20,6 +21,7 @@ type
 var
   win*: RWindow
   surface*: RGfx
+  wm*: WindowManager
   texLight*: RTexture
   fontPlex*: RFont
   tool* = toolCursor
