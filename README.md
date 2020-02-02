@@ -2,5 +2,13 @@
 
 Raycasted 2D lighting demo.
 
-Work in progress, the raycasting part will be split into a separate package
-called `delight`.
+![screenshot](screenshot.png)
+
+## Compiling
+
+```
+$ git clone https://github.com/liquid600pgm/delightful
+$ cd delightful
+$ nimble install
+$ delightful
+```
