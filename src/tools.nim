@@ -1,9 +1,9 @@
+import delight
 import rapid/gfx
 import rdgui/event
 
 import common
 import objects
-import raycaster
 
 type
   ToolImpl* = object

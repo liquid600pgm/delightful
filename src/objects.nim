@@ -1,4 +1,6 @@
+import delight
 import rapid/gfx
+import rapid/gfx/fxsurface
 import rapid/gfx/text
 import rapid/world/aabb
 import rdgui/control
@@ -8,7 +10,6 @@ import rdgui/windows
 
 import common
 import guistyles
-import raycaster
 
 {.push warning[LockLevel]: off.}
 
@@ -102,7 +103,8 @@ method draw*(light: Light, ctx: RGfxContext) =
   ctx.clearStencil(0)
   ctx.stencil(saReplace, 255):
     ctx.begin()
-    ctx.raycast(light.pos, segs)
+    for tri in raycast(light.pos, segs):
+      ctx.tri((tri.a.x, tri.a.y), (tri.b.x, tri.b.y), (tri.c.x, tri.c.y))
     ctx.draw()
   ctx.stencilTest = (scEq, 255)
   ctx.begin()
